@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        Hello from Facelets
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <p:layout fullPage="true">
+            <p:layoutUnit position="center">
+                <h:form>
+                    <p:panel id="pan1" header="input">
+                        <p:panelGrid columns="2">
+                            <p:column>
+                                <p:outputLabel id="lbl1" for="Search" value="Product :"/> 
+                            </p:column>      
+                            <p:column>
+                                <p:inputText id="Search" value="#{searchBean.searchQuery}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="btn" value="Search" action="#{searchBean.find()}" update="table"/>
+                            </f:facet>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel id="pan2" header="Reasult">
+                        <p:dataTable id="table" var="p" value="#{searchBean.find()}">
+                            <p:column>
+                                <p:outputLabel id="ID" value="#{p.proID}"/> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="Name" value="#{p.proName}"/> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="City" value="#{p.proCity}"/> 
+                            </p:column>
+                            <p:column>
+                                <p:outputLabel id="Price" value="#{p.proPrice}"/> 
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+
+                    <p:panel id="pan3" header="Add Product">
+                        <p:panelGrid columns="4">
+                            <p:column>
+                                <h:outputLabel value="Product ID:" for="productId" />
+                                <h:inputText id="productId" value="#{productController.product.proID}" required="true" />
+                            </p:column>
+                            <p:column>
+                                <!-- Label and input for Product Name -->
+                                <h:outputLabel value="Product Name:" for="productName" />
+                                <h:inputText id="productName" value="#{productController.product.proName}" required="true" />
+                            </p:column>
+
+                            <p:column>
+                                <!-- Label and input for Product City -->
+                                <h:outputLabel value="Product City:" for="productCity" />
+                                <h:inputText id="productCity" value="#{productController.product.proCity}" required="true" />
+                            </p:column>
+                            <p:column>
+                                <!-- Label and input for Product Price -->
+                                <h:outputLabel value="Product Price:" for="productPrice" />
+                                <h:inputText id="productPrice" value="#{productController.product.proPrice}" required="true" />
+                            </p:column>
+                            <f:facet name="footer">
+                                <h:commandButton value="Add Product" action="#{productController.addNewProduct}" />
+                            </f:facet>
+                            <!-- Display the response message to the user -->
+                            <h:outputText value="#{productController.responseMessage}" style="color:green;" rendered="#{productController.responseMessage != null}" />
+
+                        </p:panelGrid>
+
+                        <p:panel id="pan4" header="Delete">
+                            <p:panelGrid columns="2">
+                                <p:column>
+                                    <p:outputLabel id="lbl2" for="Delete" value="Product ID :"/> 
+                                </p:column>      
+                                <p:column>
+                                    <p:inputText id="Delete" value="#{productDelete.productId}"/>
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton id="btn" value="Delete" action="#{productDelete.deleteProduct}" update="table"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:panel>
+
+                        <p:panel header="Update Product">
+                            <p:panelGrid columns="2">
+                                <p:column>
+                                    <p:outputLabel value="Product ID:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{productUpdate.productId}" />
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Product Name:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{productUpdate.productName}" />
+                                </p:column>
+
+                                <p:column>
+                                    <p:outputLabel value="Product Price:" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{productUpdate.productPrice}" />
+                                </p:column>
+                            </p:panelGrid>
+
+                            <p:commandButton value="Update" action="#{productUpdate.updateProduct()}" update="@form" />
+                        </p:panel>
+
+
+                    </p:panel>
+                </h:form>
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>
